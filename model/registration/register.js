@@ -1,5 +1,13 @@
 const mongoose = require('mongoose')
 
+/**
+ * Status
+ * -1:  Disabled for using services
+ * 0 :  Just registered
+ * 1 :  email verified
+ * 2 :  Profile created
+ */
+
 const registerSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -31,6 +39,11 @@ const registerSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
+    },
+    emailVerify: {
+        otp: Number,
+        verified: Boolean,
+        verifiedAt: Date
     }
 })
 

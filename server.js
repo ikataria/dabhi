@@ -6,13 +6,17 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-mongoose.connect('mongodb://localhost/social', (err, connection) => {
+mongoose.connect('mongodb://localhost/social', { useNewUrlParser: true }, (err, connection) => {
     if (err) {
         console.log(`Can't connect to the database`)
     } else {
         console.log('Successfully connected to the database')
     }
 })
+mongoose.set('useUnifiedTopology', true);
+
+const indexRoutes = require('./routes/index')
+app.use('/', indexRoutes)
 
 app.listen(7000, () => {
     console.log('Listening on server 7000...')
