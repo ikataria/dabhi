@@ -19,8 +19,8 @@ const generateOTP = () => {
 
 module.exports = (req, res) => {
     try {
-        // console.log('BODY CONTENT ##########', req.body)
-        // if(! req.body.firstName)
+        console.log('BODY CONTENT ##########', req.body)
+            // if(! req.body.firstName)
         requiredField = [
             'firstName',
             'lastName',

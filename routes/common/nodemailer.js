@@ -2,11 +2,13 @@ const nodemailer = require('nodemailer')
 
 exports.sendMail = (email, subject, msg) => {
     return new Promise(function(resolve, reject) {
+        const myEmail = process.env.EMAIL
+        const myPassword = process.env.PASSWORD
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'mohitkataria330@gmail.com',
-                pass: 'hokkapani'
+                user: myEmail, //mohitkataria330@gmail.com
+                pass: myPassword
             }
         });
 

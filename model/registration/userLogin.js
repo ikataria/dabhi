@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const loginSchema = new mongoose.Schema({
+    dId: {
+        type: Number,
+        unique: true
+    },
     firstName: {
         type: String,
         required: true,
