@@ -25,5 +25,11 @@
 // } else {
 //     console.log(new Date(), __filename, '<<<<NjoY>>>>')
 // }
+const moment = require('moment')
+const day = moment().format('DD')
+const month = moment().format('MM')
+const year = moment().format('YYYY')
 
-console.log('>>>>>', Math.floor(Math.random()))
+
+var final = 11 > 9 ? "" + 11 : "0" + 11;
+console.log('DID' + day + month + year + final)

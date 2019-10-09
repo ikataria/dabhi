@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
  * compare password, if match grant access else give err msg
  */
 
-exports.login = async(req, res) => {
+exports.login = (req, res) => {
     try {
         if (!req.body.email || !req.body.password) {
             res.json({
@@ -16,34 +16,48 @@ exports.login = async(req, res) => {
                 msg: 'Please fill all the fields'
             })
         } else {
-            let rData = await dbRegister.findOne({ email: req.body.email })
-                // console.log('testing async >>>>>>>>>>', rData)
-            if (!rData) {
-                res.json({
-                    success: false,
-                    msg: 'Please Registred first'
-                })
-            } else {
-                if (rData.password == req.body.password) {
-                    let saveToken = (token) => {
-                        dbLogin.findOneAndUpdate({ email: req.body.email }, { $push: { lastLogin: new Date() }, $set: { token: token } }, (err, data) => {
-                            if (err) {
-                                res.json({
-                                    success: false,
-                                    msg: "something went wrong"
-                                })
-                            } else {
-                                res.json({
-                                    success: true,
-                                    msg: 'Login Successful',
-                                    firstName: rData.firstName,
-                                    lastName: rData.lastName,
+            dbRegister.findOne({ email: req.body.email }, (err, registerData) => {
+                    if (err) {
+                        res.json({
+                            success: false,
+                            msg: 'Something went wrong'
+                        })
+                    } else if (!registerData || registerData == null) {
+                        res.json({
+                            success: true,
+                            msg: 'Please Register First'
+                        })
+                    } else {
+                        if (registerData.password == req.body.password) {
+                            let saveToken = (token) => {
+                                dbLogin.findOneAndUpdate({ email: req.body.email }, { $push: { lastLogin: new Date() }, $set: { token: token } }, (err, data) => {
+                                    if (err) {
+                                        res.json({
+                                            success: false,
+                                            msg: "something went wrong"
+                                        })
+                                    } else {
+                                        res.json({
+                                            success: true,
+                                            msg: 'Login Successful',
+                                            firstName: registerData.firstName,
+                                            lastName: registerData.lastName,
+                                            status: registerData.status,
+                                            changePassword:
+                                        })
+                                    }
                                 })
                             }
-                        })
+                        } else {
+                            res.json({
+                                success: false,
+                                msg: `Sorry, that didn't work. Please try again`
+                            })
+                        }
                     }
-                }
-            }
+                })
+                // console.log('testing async >>>>>>>>>>', registerData)
+
 
         }
     } catch (err) {
