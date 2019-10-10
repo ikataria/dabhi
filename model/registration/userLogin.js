@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const loginSchema = new mongoose.Schema({
-    dId: {
+    DID: {
         type: Number,
         unique: true
     },
@@ -28,7 +28,7 @@ const loginSchema = new mongoose.Schema({
         unique: true
     },
     status: Number,
-    username: String,
+    userName: String,
     password: {
         type: String,
         required: true
@@ -39,7 +39,7 @@ const loginSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    // createdAt: { type: Date }
+    createdAt: { type: Date }
 })
 
 module.exports = mongoose.model('userLogin', loginSchema)

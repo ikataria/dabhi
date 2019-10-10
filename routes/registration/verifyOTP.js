@@ -53,8 +53,47 @@ module.exports = (req, res) => {
                         success: false,
                         msg: 'Please register first'
                     })
-                } else if (registerData.emailVerify.otp == req, body.emailOtp) {
-                    generateDID().then()
+                } else if (registerData.emailVerify.otp == req.body.emailOtp) {
+                    generateDID().then(DID => {
+                        new dbUserLogin({
+                            dId : DID,
+                            firstName : registerData.firstName,
+                            lastName :registerData.lastName,
+                            dob : registerData.dob,
+                            email : registerData.email,
+                            phone : registerData.phone,
+                            status : 1,
+                            userName : registerData.firstName + " " + registerData.lastName,
+                            password : registerData.password,
+                            createdAt : new Date()                            
+                        }).save((err,savedLogin) => {
+                            if(err){
+                                res.json({
+                                    success : false,
+                                    msg : 'Error while saving Login Data, Please try after some time'
+                                })
+                            }else{
+                                new dbUserProfile({
+                                    DID : DID,
+                                    userName : registerData.firstName + " " + registerData.lastName,
+                                    firstName : registerData.firstName,
+                                    lastName :registerData.lastName,
+                                    email : registerData.email,
+                                    phone : registerData.phone,
+                                    createdAt : new Date()   ,
+                                    status : 1,
+                                    active : true
+                                }).save((err,savedProfile) => {
+                                    if(err){
+                                        res.json({
+                                            success : false,
+                                            msg : 'Error while saving Login Data, Please try after some time'
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    })
                 }
             })
         }
