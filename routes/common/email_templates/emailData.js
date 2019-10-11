@@ -15,3 +15,15 @@ exports.verifyEmail = (name, otp) => {
         sign: sign
     };
 };
+
+exports.welcomeEmail = (name, link) => {
+    return {
+        heading: `Welcome!`,
+        greet: `Hi ${name},`,
+        body: `Thank you for choosing Dabhi as your social partner.
+        Your account is all set and is ready for use. Please use ${link} to login with the registered credentials.
+        We are always there to help you.`,
+        contact: contact,
+        sign: `Happy Dabhi!<br><br>${sign}`
+    };
+};

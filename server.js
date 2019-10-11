@@ -18,6 +18,5 @@ mongoose.set('useUnifiedTopology', true);
 const indexRoutes = require('./routes/index')
 app.use('/', indexRoutes)
 
-app.listen(7000, () => {
-    console.log('Listening on server 7000...')
-})
+let port = process.env.PORT || 5000
+app.listen(7000, () => console.log(`Listening on server ${port}...`))

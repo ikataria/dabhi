@@ -1,4 +1,4 @@
-const dbRegister = require('../../model/registration/register')
+const dbProfile = require('../../model/registration/profile')
 const dbLogin = require('../../model/registration/userLogin')
 const jwt = require('jsonwebtoken')
 
@@ -16,19 +16,19 @@ exports.login = (req, res) => {
                 msg: 'Please fill all the fields'
             })
         } else {
-            dbRegister.findOne({ email: req.body.email }, (err, registerData) => {
+            dbLogin.findOne({ email: req.body.email }, (err, loginData) => {
                     if (err) {
                         res.json({
                             success: false,
                             msg: 'Something went wrong'
                         })
-                    } else if (!registerData || registerData == null) {
+                    } else if (!loginData || loginData == null) {
                         res.json({
                             success: true,
                             msg: 'Please Register First'
                         })
                     } else {
-                        if (registerData.password == req.body.password) {
+                        if (loginData.password == req.body.password) {
                             let saveToken = (token) => {
                                 dbLogin.findOneAndUpdate({ email: req.body.email }, { $push: { lastLogin: new Date() }, $set: { token: token } }, (err, data) => {
                                     if (err) {
@@ -40,14 +40,34 @@ exports.login = (req, res) => {
                                         res.json({
                                             success: true,
                                             msg: 'Login Successful',
-                                            firstName: registerData.firstName,
-                                            lastName: registerData.lastName,
-                                            status: registerData.status,
-                                            changePassword:
+                                            status: loginData.status,
+                                            token: token,
+                                            changePassword: loginData.changePassword || false
                                         })
                                     }
                                 })
                             }
+                            let tokenData = {}
+                            dbProfile.findOne({ email: req.body.email }, (err, profile) => {
+                                if (err) {
+                                    res.json({
+                                        success: false,
+                                        msg: 'Something went wrong'
+                                    })
+                                } else {
+                                    tokenData = {
+                                        _id: loginData._id,
+                                        DID: loginData.DID,
+                                        firstName: loginData.firstName,
+                                        lastName: loginData.lastName,
+                                        email: loginData.email,
+                                        phone: loginData.phone,
+                                        // user: 'User'
+                                    }
+                                    let token = jwt.sign(tokenData, 'secretKey')
+                                    saveToken(token)
+                                }
+                            })
                         } else {
                             res.json({
                                 success: false,
@@ -63,4 +83,20 @@ exports.login = (req, res) => {
     } catch (err) {
         console.log('catch err', err)
     }
+}
+
+exports.logout = (req, res) => {
+    dbLogin.findOneAndUpdate({ email: req.body.email }, { $set: { token: null } }, (err, logout) => {
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Something went wrong'
+            })
+        } else {
+            res.json({
+                success: true,
+                msg: 'Logout Successfull'
+            })
+        }
+    })
 }

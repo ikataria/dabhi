@@ -35,6 +35,7 @@ const generateDID = () => {
 }
 
 module.exports = (req, res) => {
+    console.log('<<<<<<<<<<<<<<<<<<<here>>>>>>>>>>>>>>>>>>>>>> ')
     try {
         if (!req.body.emailOtp) {
             res.json({
@@ -43,6 +44,7 @@ module.exports = (req, res) => {
             })
         } else {
             dbRegister.findOne({ email: req.decoded.email, phone: req.decoded.phone }, (err, registerData) => {
+                console.log('verifyOtp registerData >>>>>>>>>>>>>>>>>>..', registerData)
                 if (err) {
                     res.json({
                         success: false,
@@ -54,50 +56,89 @@ module.exports = (req, res) => {
                         msg: 'Please register first'
                     })
                 } else if (registerData.emailVerify.otp == req.body.emailOtp) {
+                    console.log('BODY **********>>', req.body)
+                    console.log('registerDATA >>>>>>>>>>*>*>*>*>*>', registerData)
                     generateDID().then(DID => {
                         new dbUserLogin({
-                            dId : DID,
-                            firstName : registerData.firstName,
-                            lastName :registerData.lastName,
-                            dob : registerData.dob,
-                            email : registerData.email,
-                            phone : registerData.phone,
-                            status : 1,
-                            userName : registerData.firstName + " " + registerData.lastName,
-                            password : registerData.password,
-                            createdAt : new Date()                            
-                        }).save((err,savedLogin) => {
-                            if(err){
+                            DID: DID,
+                            firstName: registerData.firstName,
+                            lastName: registerData.lastName,
+                            dob: registerData.dob,
+                            email: registerData.email,
+                            phone: registerData.phone,
+                            status: 1,
+                            userName: registerData.firstName + " " + registerData.lastName,
+                            password: registerData.password,
+                            createdAt: new Date()
+                        }).save((err, savedLogin) => {
+                            if (err) {
                                 res.json({
-                                    success : false,
-                                    msg : 'Error while saving Login Data, Please try after some time'
+                                    success: false,
+                                    msg: 'Error while saving Login Data, Please try after some time'
                                 })
-                            }else{
+                            } else {
                                 new dbUserProfile({
-                                    DID : DID,
-                                    userName : registerData.firstName + " " + registerData.lastName,
-                                    firstName : registerData.firstName,
-                                    lastName :registerData.lastName,
-                                    email : registerData.email,
-                                    phone : registerData.phone,
-                                    createdAt : new Date()   ,
-                                    status : 1,
-                                    active : true
-                                }).save((err,savedProfile) => {
-                                    if(err){
+                                    DID: DID,
+                                    userName: registerData.firstName + " " + registerData.lastName,
+                                    firstName: registerData.firstName,
+                                    lastName: registerData.lastName,
+                                    email: registerData.email,
+                                    phone: registerData.phone,
+                                    createdAt: new Date(),
+                                    status: 1,
+                                    active: true
+                                }).save((err, savedProfile) => {
+                                    if (err) {
                                         res.json({
-                                            success : false,
-                                            msg : 'Error while saving Login Data, Please try after some time'
+                                            success: false,
+                                            msg: 'Error while saving Login Data, Please try after some time'
+                                        })
+                                    } else {
+                                        dbRegister.findOneAndUpdate({ email: req.decoded.email, phone: req.decoded.phone }, { $set: { status: 1, 'emailVerify.verified': true, 'emailVerify.verifiedAt': new Date(), } }, (err, update) => {
+                                            let emailObj = emailData.welcomeEmail(registerData.firstName, `www.Dabhi.com`)
+                                            ejs.renderFile(path.join(__dirname + '../email_templates/basic.ejs'), emailObj, (err, html) => {
+                                                if (err) {
+                                                    res.json({
+                                                        success: false,
+                                                        msg: "Registration failed"
+                                                    })
+                                                } else {
+                                                    let subject = 'Welcome Dabhi !'
+                                                    mailer.sendMail(registerData.email, subject, html).then(data => {
+                                                        console.log('email data %%%%%%%%%%%%%%%%>>', data)
+                                                        res.json({
+                                                            success: true,
+                                                            msg: 'Registration successfull'
+                                                        })
+                                                    }).catch(err => {
+                                                        res.json({
+                                                            success: true,
+                                                            msg: 'Registration successfull'
+                                                        })
+                                                    })
+                                                }
+                                            })
                                         })
                                     }
                                 })
                             }
                         })
+                    }).catch(err => {
+                        console.log(__filename, new Date(), '--=', err)
+                        res.json({
+                            success: false,
+                            msg: "Something went wrong. Please try again."
+                        })
+                    })
+                } else {
+                    res.json({
+                        success: false,
+                        msg: 'OTP mismatch'
                     })
                 }
             })
         }
     } catch (err) {
-        console.log(__filename, new Date(), 'err')
+        console.log(__filename, new Date(), err)
     }
 }

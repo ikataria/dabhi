@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const tokenVerify = require('../common/tokenVerify')
 
 // Registration Route
 router.post('/register', require('./register'));
 
+//verifyOTP
+router.post('/verifyOTP', tokenVerify, require('./verifyOTP'))
+
 // Login & LogOut
-const loginLogout = require('./loginLogout')
-router.post('/login', loginLogout.login)
+router.post('/login', require('./loginLogout').login)
+router.post('/logout', require('./loginLogout').logout)
+
 
 
 module.exports = router

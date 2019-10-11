@@ -91,11 +91,11 @@ module.exports = (req, res) => {
 
                                     ejs.renderFile(path.join(__dirname + '../common/email_templates/emailData.js'), emailObj, (err, html) => {
 
-                                        // console.log('err>>>>>>>>>>>>.....', html)
+
                                         if (err) {
+                                            console.log('err>>>>>>>>>>>>.....', err)
                                             res.json({
                                                 success: false,
-                                                token: token,
                                                 msg: 'renderFile err, Please verify the account'
                                             })
                                         } else {
@@ -109,7 +109,6 @@ module.exports = (req, res) => {
                                             }).catch(err => {
                                                 res.json({
                                                     success: false,
-                                                    token: token,
                                                     msg: "catch err,Please verify the account."
                                                 })
                                             })
@@ -160,9 +159,9 @@ module.exports = (req, res) => {
                                                     msg: 'Please verify the account'
                                                 })
                                             }).catch(err => {
+                                                console.log('err>>>>>>>>>>>>', err)
                                                 res.json({
                                                     success: false,
-                                                    token: token,
                                                     msg: "catch err,Please verify the account."
                                                 })
                                             })
