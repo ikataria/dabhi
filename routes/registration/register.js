@@ -19,8 +19,6 @@ const generateOTP = () => {
 
 module.exports = (req, res) => {
     try {
-        console.log('BODY CONTENT ##########', req.body)
-            // if(! req.body.firstName)
         requiredField = [
             'firstName',
             'lastName',
@@ -42,7 +40,6 @@ module.exports = (req, res) => {
             })
         } else {
             dbLogin.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, lData) => {
-                console.log('here ldata >>>>>>>>>>>>>>>>>', lData)
                 if (err) {
                     res.json({
                         success: false,
@@ -57,14 +54,11 @@ module.exports = (req, res) => {
                     const token = jwt.sign(tokenData, 'secretKey')
                         /** Above secret key has to be stored in environment variable, but for now we using openly in our source code */
                     dbRegistration.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, registerData) => {
-                        console.log('regis data>>>>>>>>>>>>.', registerData)
-
                         if (err) {
                             res.json({
-                                    success: false,
-                                    msg: "Error in processing request. Please try again after some time"
-                                })
-                                //console.log(new Date(), __filename, 'err')
+                                success: false,
+                                msg: "Error in processing request. Please try again after some time"
+                            })
                         } else if (!registerData || registerData == null) {
 
                             new dbRegistration({
@@ -80,20 +74,19 @@ module.exports = (req, res) => {
                                     verified: false
                                 }
                             }).save((err, savedData) => {
+                                console.log('Registered Data +++++++++++++++++++++++>', savedData)
                                 if (err) {
                                     res.json({
                                         success: false,
                                         msg: 'Registration Data not saved, err! '
                                     })
                                 } else {
-                                    console.log('err>>>>>>>>>>>>.....', savedData)
                                     let emailObj = emailData.verifyEmail(req.body.firstName, savedData.emailVerify.otp)
 
-                                    ejs.renderFile(path.join(__dirname + '../common/email_templates/emailData.js'), emailObj, (err, html) => {
+                                    ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
 
 
                                         if (err) {
-                                            console.log('err>>>>>>>>>>>>.....', err)
                                             res.json({
                                                 success: false,
                                                 msg: 'renderFile err, Please verify the account'
@@ -141,14 +134,12 @@ module.exports = (req, res) => {
                                     })
                                 } else {
                                     let emailObj = emailData.verifyEmail(req.body.firstName, newObj.emailVerify.otp)
-                                    ejs.renderFile(path.join(__dirname + '../../common/email_templates/emailData.js'), emailObj, (err, html) => {
-                                        console.log('err+>+>+>+>+>+>+>++>+>+>+>+>++>+>.....', err)
-                                        console.log('html data 2+>+>+>+>+>+>+>++>+>+>+>+>++>+>.....', html)
+                                    ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
                                         if (err) {
                                             res.json({
                                                 success: false,
                                                 token: token,
-                                                msg: 'renderFile err in same cred, Please verify the account'
+                                                msg: 'renderFile err in same credentials, Please verify the account'
                                             })
                                         } else {
                                             let subject = 'OTP verify'

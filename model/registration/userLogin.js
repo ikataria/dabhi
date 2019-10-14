@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 const loginSchema = new mongoose.Schema({
     DID: {
-        type: Number,
-        unique: true
+        type: String,
     },
     firstName: {
         type: String,

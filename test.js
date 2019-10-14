@@ -30,6 +30,11 @@ const day = moment().format('DD')
 const month = moment().format('MM')
 const year = moment().format('YYYY')
 
+for (let i = 1; i < 20; i++) {
 
-var final = 11 > 9 ? "" + 11 : "0" + 11;
-console.log('DID' + day + month + year + final)
+
+    let newCount = i
+    var final = newCount > 9 ? "" + newCount : "0" + newCount;
+    console.log('DID' + day + month + year + final)
+
+}

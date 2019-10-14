@@ -16,7 +16,7 @@ const year = moment().format('YYYY')
 
 // Generating new DID 
 const generateDID = () => {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         // let date = moment().format('DD-MM-YY')
         // let acDate = moment(date, 'DD-MM-YY').toDate()
         dbUserLogin.count({}, (err, count) => {
@@ -35,7 +35,7 @@ const generateDID = () => {
 }
 
 module.exports = (req, res) => {
-    console.log('<<<<<<<<<<<<<<<<<<<here>>>>>>>>>>>>>>>>>>>>>> ')
+    // console.log('<<<<<<<<<<<<<<<<<<<here>>>>>>>>>>>>>>>>>>>>>> ')
     try {
         if (!req.body.emailOtp) {
             res.json({
@@ -44,7 +44,7 @@ module.exports = (req, res) => {
             })
         } else {
             dbRegister.findOne({ email: req.decoded.email, phone: req.decoded.phone }, (err, registerData) => {
-                console.log('verifyOtp registerData >>>>>>>>>>>>>>>>>>..', registerData)
+                // console.log('verifyOtp registerData >>>>>>>>>>>>>>>>>>..', registerData)
                 if (err) {
                     res.json({
                         success: false,
@@ -56,9 +56,10 @@ module.exports = (req, res) => {
                         msg: 'Please register first'
                     })
                 } else if (registerData.emailVerify.otp == req.body.emailOtp) {
-                    console.log('BODY **********>>', req.body)
-                    console.log('registerDATA >>>>>>>>>>*>*>*>*>*>', registerData)
+                    // console.log('BODY **********>>', req.body)
+                    // console.log('registerDATA >>>>>>>>>>*>*>*>*>*>', registerData)
                     generateDID().then(DID => {
+                        console.log('DID>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', DID)
                         new dbUserLogin({
                             DID: DID,
                             firstName: registerData.firstName,
@@ -67,14 +68,15 @@ module.exports = (req, res) => {
                             email: registerData.email,
                             phone: registerData.phone,
                             status: 1,
-                            userName: registerData.firstName + " " + registerData.lastName,
+                            userName: registerData.firstName + "" + registerData.lastName,
                             password: registerData.password,
                             createdAt: new Date()
                         }).save((err, savedLogin) => {
+                            console.log('login err >>>>>>>>>>>>>>>>>>', err)
                             if (err) {
                                 res.json({
                                     success: false,
-                                    msg: 'Error while saving Login Data, Please try after some time'
+                                    msg: 'Error while saving Login Data, Please try after some time 1'
                                 })
                             } else {
                                 new dbUserProfile({
@@ -89,15 +91,17 @@ module.exports = (req, res) => {
                                     active: true
                                 }).save((err, savedProfile) => {
                                     if (err) {
+                                        console.log('ERR0 >>>>>>>>>>>>>>>>>>', err)
                                         res.json({
                                             success: false,
-                                            msg: 'Error while saving Login Data, Please try after some time'
+                                            msg: 'Error while saving Login Data, Please try after some time 1'
                                         })
                                     } else {
                                         dbRegister.findOneAndUpdate({ email: req.decoded.email, phone: req.decoded.phone }, { $set: { status: 1, 'emailVerify.verified': true, 'emailVerify.verifiedAt': new Date(), } }, (err, update) => {
                                             let emailObj = emailData.welcomeEmail(registerData.firstName, `www.Dabhi.com`)
-                                            ejs.renderFile(path.join(__dirname + '../email_templates/basic.ejs'), emailObj, (err, html) => {
+                                            ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
                                                 if (err) {
+                                                    console.log('ERR >>>>>>>>>>', err)
                                                     res.json({
                                                         success: false,
                                                         msg: "Registration failed"

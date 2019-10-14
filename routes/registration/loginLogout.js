@@ -24,7 +24,7 @@ exports.login = (req, res) => {
                         })
                     } else if (!loginData || loginData == null) {
                         res.json({
-                            success: true,
+                            success: false,
                             msg: 'Please Register First'
                         })
                     } else {
