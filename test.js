@@ -26,15 +26,30 @@
 //     console.log(new Date(), __filename, '<<<<NjoY>>>>')
 // }
 const moment = require('moment')
-const day = moment().format('DD')
-const month = moment().format('MM')
-const year = moment().format('YYYY')
+    // const day = moment().format('DD')
+    // const month = moment().format('MM')
+    // const year = moment().format('YYYY')
 
-for (let i = 1; i < 20; i++) {
+// for (let i = 1; i < 20; i++) {
 
 
-    let newCount = i
-    var final = newCount > 9 ? "" + newCount : "0" + newCount;
-    console.log('DID' + day + month + year + final)
+//     let newCount = i
+//     var final = newCount > 9 ? "" + newCount : "0" + newCount;
+//     console.log('DID' + day + month + year + final)
 
-}
+// }
+
+
+
+
+
+
+
+
+
+// let date = moment().format('DD-MM-YYYY')
+// console.log('>>>>>>>>>>>>>', date)
+
+// for (let i = 0; i <= 20; i++) {
+//     console.log('i value >>>', i)
+// }
