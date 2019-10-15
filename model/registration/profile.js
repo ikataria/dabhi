@@ -2,9 +2,9 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
 /**
- * -1: blocked
- * -10: deleted
- * 2: Verified and profile created
+ * -2: blocked
+ * -1: deleted
+ *  1: Verified and profile created
  */
 
 
@@ -13,9 +13,14 @@ var profile = new Schema({
         type: String,
         unique: true
     },
-    userName: String,
+    userName: {
+        type: String,
+        unique: true,
+        required: true
+    },
     firstName: String,
     lastName: String,
+    fullName: String,
     email: String,
     address: [{
         line1: String,

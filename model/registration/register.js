@@ -17,6 +17,11 @@ const registerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userName: {
+        type: String,
+        required: true,
+        unique: true
+    },
     dob: {
         type: String,
         required: true

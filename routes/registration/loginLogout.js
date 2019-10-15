@@ -58,8 +58,9 @@ exports.login = (req, res) => {
                                     tokenData = {
                                         _id: loginData._id,
                                         DID: loginData.DID,
-                                        firstName: loginData.firstName,
-                                        lastName: loginData.lastName,
+                                        fullName: loginData.firstName + "" + loginData.lastName,
+                                        // lastName: loginData.lastName,
+                                        userName: loginData.userName,
                                         email: loginData.email,
                                         phone: loginData.phone,
                                         // user: 'User'

@@ -12,6 +12,12 @@ const loginSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    fullName: String,
+    userName: {
+        type: String,
+        unique: true,
+        required: true
+    },
     dob: {
         type: String,
         required: true
@@ -27,7 +33,6 @@ const loginSchema = new mongoose.Schema({
         unique: true
     },
     status: Number,
-    userName: String,
     password: {
         type: String,
         required: true

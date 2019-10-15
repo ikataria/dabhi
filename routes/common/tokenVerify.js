@@ -33,7 +33,7 @@ module.exports = (req, res, next) => {
                     req.decoded = decoded
                     next()
                 } else {
-                    res.status(401).json({ success: false, msg: 'Unauthorised Token' })
+                    res.status(401).json({ success: false, msg: 'Unauthorized Token' })
                 }
             }
         })

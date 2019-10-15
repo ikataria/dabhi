@@ -1,5 +1,5 @@
-const dbUserlogin = require('../../model/registration/profile')
-const dbPost = require('../../model/post/post')
+const dbUserlogin = require('../../../model/registration/profile')
+const dbPost = require('../../../model/post/post')
 const moment = require('moment')
 
 const generatePostID = function() {

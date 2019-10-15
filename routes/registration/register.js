@@ -25,7 +25,8 @@ module.exports = (req, res) => {
             'dob',
             'email',
             'phone',
-            'password'
+            'password',
+            'userName'
         ]
         for (let key in req.body) {
             if (requiredField.includes(key) && req.body[key]) {
@@ -49,7 +50,8 @@ module.exports = (req, res) => {
 
                     tokenData = {
                         email: req.body.email,
-                        phone: req.body.phone
+                        phone: req.body.phone,
+                        userName: req.body.userName
                     }
                     const token = jwt.sign(tokenData, 'secretKey')
                         /** Above secret key has to be stored in environment variable, but for now we using openly in our source code */
@@ -64,6 +66,7 @@ module.exports = (req, res) => {
                             new dbRegistration({
                                 firstName: req.body.firstName,
                                 lastName: req.body.lastName,
+                                userName: req.body.userName,
                                 dob: req.body.dob,
                                 email: req.body.email,
                                 phone: req.body.phone,
@@ -115,6 +118,7 @@ module.exports = (req, res) => {
                             let newObj = {
                                 firstName: req.body.firstName,
                                 lastName: req.body.lastName,
+                                userName: req.body.userName,
                                 dob: req.body.dob,
                                 email: req.body.email,
                                 phone: req.body.phone,

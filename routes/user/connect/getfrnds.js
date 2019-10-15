@@ -1,7 +1,7 @@
-const dbProfile = require('../../model/registration/profile')
+const dbProfile = require('../../../model/registration/profile')
 
 module.exports = (req, res) => {
-    dbProfile.find({}, (err, profileData) => {
+    dbProfile.find({ status: { $nin: [-1, -2] } }, (err, profileData) => {
         if (err) {
             res.json({
                 success: false,
@@ -13,11 +13,20 @@ module.exports = (req, res) => {
                 msg: 'No Friends Found'
             })
         } else {
+            let arr = []
+            profileData.forEach(ele => {
+                userName = ele.userName
+                arr.push(userName)
+            })
+
+            console.log('profile data XXXXXXXXXXXXXXXXXXXx-->', arr)
+
+
             res.json({
                 success: true,
                 msg: 'All Dabhi',
                 count: profileData.length,
-                data: profileData
+                data: arr
             })
         }
     })

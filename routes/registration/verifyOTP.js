@@ -64,11 +64,12 @@ module.exports = (req, res) => {
                             DID: DID,
                             firstName: registerData.firstName,
                             lastName: registerData.lastName,
+                            userName: registerData.userName,
                             dob: registerData.dob,
                             email: registerData.email,
                             phone: registerData.phone,
                             status: 1,
-                            userName: registerData.firstName + "" + registerData.lastName,
+                            fullName: registerData.firstName + "" + registerData.lastName,
                             password: registerData.password,
                             createdAt: new Date()
                         }).save((err, savedLogin) => {
@@ -81,9 +82,10 @@ module.exports = (req, res) => {
                             } else {
                                 new dbUserProfile({
                                     DID: DID,
-                                    userName: registerData.firstName + " " + registerData.lastName,
+                                    fullName: registerData.firstName + " " + registerData.lastName,
                                     firstName: registerData.firstName,
                                     lastName: registerData.lastName,
+                                    userName: registerData.userName,
                                     email: registerData.email,
                                     phone: registerData.phone,
                                     createdAt: new Date(),
