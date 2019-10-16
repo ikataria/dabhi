@@ -10,7 +10,7 @@ router.post('/verifyOTP', tokenVerify, require('./verifyOTP'))
 
 // Login & LogOut
 router.post('/login', require('./loginLogout').login)
-router.post('/logout', require('./loginLogout').logout)
+router.post('/logout', tokenVerify, require('./loginLogout').logout)
 
 
 

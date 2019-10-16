@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const config = require('./config/config.json')
 const app = express()
 
 app.use(bodyParser.json())
@@ -15,8 +16,11 @@ mongoose.connect('mongodb://localhost/social', { useNewUrlParser: true }, (err, 
 })
 mongoose.set('useUnifiedTopology', true);
 
+let secret = config.SECRET
+let port = process.env.PORT || config.PORT
+
 const indexRoutes = require('./routes/index')
 app.use('/', indexRoutes)
 
-let port = process.env.PORT || 5000
-app.listen(7000, () => console.log(`Listening on server ${port}...`))
+// let port = process.env.PORT || 5000
+app.listen(port, () => console.log(`Listening on server ${port}...`))

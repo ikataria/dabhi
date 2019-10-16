@@ -1,4 +1,4 @@
-const dbUserlogin = require('../../../model/registration/profile')
+// const dbUserlogin = require('../../../model/registration/profile')
 const dbPost = require('../../../model/post/post')
 const moment = require('moment')
 
@@ -31,6 +31,7 @@ module.exports = (req, res) => {
         generatePostID().then(PID => {
             new dbPost({
                 DID: req.decoded.DID,
+                fullName: req.decoded.fullName,
                 postID: PID,
                 story: req.body.story,
                 date: new Date(),

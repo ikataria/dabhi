@@ -17,8 +17,9 @@ const postSchema = new Schema({
     },
     story: {
         type: String,
-        required: true
+        required: true,
     },
+    fullName: String,
     status: Number,
     date: Date,
 

@@ -4,7 +4,7 @@ const dbUserLogin = require('../../model/registration/userLogin')
 module.exports = (req, res, next) => {
     let token = req.headers['x-access-token']
     if (token) {
-        jwt.verify(token, 'secretKey', (err, decoded) => {
+        jwt.verify(token, req.app.get('secretKey'), (err, decoded) => {
             console.log('decoded data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', decoded)
             if (err) {
                 res.json({
