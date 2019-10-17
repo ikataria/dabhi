@@ -25,10 +25,10 @@
 // } else {
 //     console.log(new Date(), __filename, '<<<<NjoY>>>>')
 // }
-const moment = require('moment')
-    // const day = moment().format('DD')
-    // const month = moment().format('MM')
-    // const year = moment().format('YYYY')
+// const moment = require('moment')
+// const day = moment().format('DD')
+// const month = moment().format('MM')
+// const year = moment().format('YYYY')
 
 // for (let i = 1; i < 20; i++) {
 
@@ -39,17 +39,11 @@ const moment = require('moment')
 
 // }
 
-
-
-
-
-
-
-
-
 // let date = moment().format('DD-MM-YYYY')
 // console.log('>>>>>>>>>>>>>', date)
 
 // for (let i = 0; i <= 20; i++) {
 //     console.log('i value >>>', i)
 // }
+
+// process.argv.forEach((data, index) => { console.log(`>>>>>>>>> ${index}>>><<<<${data}`) })

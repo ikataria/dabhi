@@ -1,4 +1,4 @@
 {
     "SECRET": "Development",
-    "POST": 5000
+    "PORT": 7000
 }

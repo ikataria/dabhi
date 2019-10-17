@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const config = require('./config/config.json')
 const app = express()
-
+const process = require('process')
+console.log(process.argv)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -18,6 +19,8 @@ mongoose.set('useUnifiedTopology', true);
 
 let secret = config.SECRET
 let port = process.env.PORT || config.PORT
+
+app.set('secretKey', secret)
 
 const indexRoutes = require('./routes/index')
 app.use('/', indexRoutes)

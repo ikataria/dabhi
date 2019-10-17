@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
     let token = req.headers['x-access-token']
     if (token) {
         jwt.verify(token, req.app.get('secretKey'), (err, decoded) => {
+            console.log('err data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', err)
             console.log('decoded data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', decoded)
             if (err) {
                 res.json({
