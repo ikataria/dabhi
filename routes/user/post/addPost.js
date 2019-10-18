@@ -34,7 +34,7 @@ module.exports = (req, res) => {
                 fullName: req.decoded.fullName,
                 postID: PID,
                 story: req.body.story,
-                date: new Date(),
+                date: new Date().toLocaleString(),
                 status: 0
             }).save((err, savedPost) => {
                 console.log('Story >>>>>>>>>>..', savedPost)

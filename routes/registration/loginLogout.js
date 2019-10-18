@@ -30,7 +30,7 @@ exports.login = (req, res) => {
                     } else {
                         if (loginData.password == req.body.password) {
                             let saveToken = (token) => {
-                                dbLogin.findOneAndUpdate({ email: req.body.email }, { $push: { lastLogin: new Date() }, $set: { token: token } }, (err, data) => {
+                                dbLogin.findOneAndUpdate({ email: req.body.email }, { $push: { lastLogin: new Date().toLocaleString() }, $set: { token: token } }, (err, data) => {
                                     if (err) {
                                         res.json({
                                             success: false,
@@ -65,7 +65,7 @@ exports.login = (req, res) => {
                                         phone: loginData.phone,
                                         // user: 'User'
                                     }
-                                    let token = jwt.sign(tokenData, 'secretKey')
+                                    let token = jwt.sign(tokenData, req.app.get('secretKey'))
                                     saveToken(token)
                                 }
                             })

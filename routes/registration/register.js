@@ -53,7 +53,7 @@ module.exports = (req, res) => {
                         phone: req.body.phone,
                         userName: req.body.userName
                     }
-                    const token = jwt.sign(tokenData, 'secretKey')
+                    const token = jwt.sign(tokenData, req.app.get('secretKey'))
                         /** Above secret key has to be stored in environment variable, but for now we using openly in our source code */
                     dbRegistration.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, registerData) => {
                         if (err) {

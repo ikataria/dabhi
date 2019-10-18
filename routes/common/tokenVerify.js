@@ -5,9 +5,8 @@ module.exports = (req, res, next) => {
     let token = req.headers['x-access-token']
     if (token) {
         jwt.verify(token, req.app.get('secretKey'), (err, decoded) => {
-            console.log('err data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', err)
-            console.log('decoded data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', decoded)
             if (err) {
+                console.log(new Date().toLocaleString(), __filename, 'err data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', err)
                 res.json({
                     success: false,
                     msg: 'Failed to authenticate token'
@@ -30,6 +29,7 @@ module.exports = (req, res, next) => {
                 //         })
                 //     }
                 // })
+                console.log('decoded data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>.', decoded)
                 if (decoded) {
                     req.decoded = decoded
                     next()

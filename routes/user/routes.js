@@ -3,10 +3,14 @@ const router = express.Router()
 const tokenVerify = require('../common/tokenVerify')
 
 router.post('/addpost', tokenVerify, require('./post/addPost'))
-router.get('/getfrnds', tokenVerify, require('./connect/getfrnds'))
 router.post('/editpost', tokenVerify, require('./post/editPost').edit)
 router.post('/deletepost', tokenVerify, require('./post/editPost').delete)
 router.post('/findpost', tokenVerify, require('./post/findPost'))
+
+//  Connect
+router.get('/getfrnds', tokenVerify, require('./connect/getfrnds'))
 router.post('/sendrqst', tokenVerify, require('./connect/sendRequest'))
+router.get('/rqstlist', tokenVerify, require('./connect/rqstApprove').rqstList)
+router.post('/rqstapprove', tokenVerify, require('./connect/rqstApprove').rqstApprove)
 
 module.exports = router

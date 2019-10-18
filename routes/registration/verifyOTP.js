@@ -71,7 +71,7 @@ module.exports = (req, res) => {
                             status: 1,
                             fullName: registerData.firstName + "" + registerData.lastName,
                             password: registerData.password,
-                            createdAt: new Date()
+                            createdAt: new Date().toLocaleString()
                         }).save((err, savedLogin) => {
                             console.log('login err >>>>>>>>>>>>>>>>>>', err)
                             if (err) {
@@ -88,7 +88,7 @@ module.exports = (req, res) => {
                                     userName: registerData.userName,
                                     email: registerData.email,
                                     phone: registerData.phone,
-                                    createdAt: new Date(),
+                                    createdAt: new Date().toLocaleString(),
                                     status: 1,
                                     active: true
                                 }).save((err, savedProfile) => {
@@ -99,7 +99,7 @@ module.exports = (req, res) => {
                                             msg: 'Error while saving Login Data, Please try after some time 1'
                                         })
                                     } else {
-                                        dbRegister.findOneAndUpdate({ email: req.decoded.email, phone: req.decoded.phone }, { $set: { status: 1, 'emailVerify.verified': true, 'emailVerify.verifiedAt': new Date(), } }, (err, update) => {
+                                        dbRegister.findOneAndUpdate({ email: req.decoded.email, phone: req.decoded.phone }, { $set: { status: 1, 'emailVerify.verified': true, 'emailVerify.verifiedAt': new Date().toLocaleString(), } }, (err, update) => {
                                             let emailObj = emailData.welcomeEmail(registerData.firstName, `www.Dabhi.com`)
                                             ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
                                                 if (err) {

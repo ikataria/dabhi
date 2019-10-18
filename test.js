@@ -47,3 +47,22 @@
 // }
 
 // process.argv.forEach((data, index) => { console.log(`>>>>>>>>> ${index}>>><<<<${data}`) })
+
+// var date2 = new Date().toLocaleString();
+// // Sun Dec 17 1995 03:24:00 GMT...
+
+// console.log('date >>>>>>>>>>>', date2);
+
+let answer = "no"
+
+switch (answer) {
+    case "no":
+        console.log('Naat Gi/Ga')
+        break
+    case "yes":
+        console.log('Moj hogi')
+        break
+    case "":
+        console.log('Baath dhek ibbe')
+        break
+}
