@@ -1,3 +1,4 @@
+// console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
 // var person = {};
 // person['firstname'] = 'Mario';
 // person['lastname'] = 'Rossi';
@@ -53,16 +54,18 @@
 
 // console.log('date >>>>>>>>>>>', date2);
 
-let answer = "no"
+// let answer = "no"
 
-switch (answer) {
-    case "no":
-        console.log('Naat Gi/Ga')
-        break
-    case "yes":
-        console.log('Moj hogi')
-        break
-    case "":
-        console.log('Baath dhek ibbe')
-        break
-}
+// switch (answer) {
+//     case "no":
+//         console.log('Naat Gi/Ga')
+//         break
+//     case "yes":
+//         console.log('Moj hogi')
+//         break
+//     case "":
+//         console.log('Baath dhek ibbe')
+//         break
+// }
+// let obj = { name: 'yes' }
+// console.log('=>', /^obj.name/i)

@@ -10,6 +10,7 @@ const listSchema = new mongoose.Schema({
         userName: String,
     },
     createdAt: Date,
+    rqstApproved: String
 })
 
 module.exports = mongoose.model('frndRqstList', listSchema)
