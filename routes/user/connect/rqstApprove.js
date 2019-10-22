@@ -74,7 +74,7 @@ exports.rqstApprove = (req, res) => {
                                 })
                             } else {
                                 if (approved.approveRequest == 'YES' || approved.approveRequest == 'yes' || approved.approveRequest == 'Yes') {
-                                    dbFrndRqstList.findOneAndUpdate({ $and: [{ 'from.userName': approved.from.DID }, { 'to.userName': approved.to.DID }] }, { $set: { rqstApproved: 'yes' } }, (err, updated) => {
+                                    dbFrndRqstList.findOneAndUpdate({ $and: [{ 'from.userName': approved.from.userName }, { 'to.userName': approved.to.userName }] }, { $set: { rqstApproved: 'yes' } }, (err, updated) => {
                                         console.log('updated data ::::::::::::::::==>>', updated)
                                         if (err) {
                                             console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", "err")
