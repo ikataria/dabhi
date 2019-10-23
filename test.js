@@ -69,3 +69,23 @@
 // }
 // let obj = { name: 'yes' }
 // console.log('=>', /^obj.name/i)
+
+// let arr = [{ name: 'mohit', age: 25, height: 6 }, { name: 'gaurav', age: 24, height: 5.6 }, { name: 'ankur', age: 26, height: 5.9 }]
+// let map = arr.map(a => {
+//     return {
+//         age: a.age,
+//         by: a.name
+//     }
+// })
+
+// console.log('map data ^^^^^^>>', map)
+
+function like() {
+    // n++
+    // arr.push(n++)
+
+    // return n
+    return console.log('hellA')
+}
+
+like()

@@ -23,12 +23,11 @@ module.exports = (req, res) => {
                     msg: 'No post to show'
                 })
             } else {
+                /******************* searching DID from dbApproveFR  *******************************/
                 let arr = []
-                data.forEach((ele, index) => {
-                    // console.log('***', index, '-->', ele.from.DID)
-                    arr.push(ele.from.DID)
-                })
-                console.log('data :::::::+===::::+++++:+:+:+:+:+:', arr)
+                data.forEach(ele => arr.push(ele.from.DID))
+
+                /*********************** from array of DID we will search the POST  ***************/
                 dbPost.find({ DID: arr }, (err, postData) => {
                     if (err) {
                         console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
@@ -37,18 +36,16 @@ module.exports = (req, res) => {
                             msg: 'Something went wrong !'
                         })
                     } else {
-                        let arrStory = []
-                        let arrBy = []
-                        postData.forEach(a => {
-                            console.log('POST %%%%%%%%%%^^^^^^^^^^^^^^^^^^^^', a.story, ', By :-', a.fullName)
-
-                            arrStory.push(a.story)
-                            arrBy.push(a.fullName)
+                        let obj = postData.map(a => {
+                            return ({
+                                story: a.story,
+                                by: a.fullName
+                            })
                         })
+                        console.log('objdata ####################>>', obj)
                         res.json({
                             success: true,
-                            post: arrStory,
-                            by: arrBy
+                            post: obj,
                         })
                     }
                 })
