@@ -80,6 +80,7 @@
 
 // console.log('map data ^^^^^^>>', map)
 
+
 function like() {
     // n++
     // arr.push(n++)

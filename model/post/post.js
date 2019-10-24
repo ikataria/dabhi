@@ -21,8 +21,14 @@ const postSchema = new Schema({
     },
     fullName: String,
     status: Number,
-    date: Date,
+    createdAt: Date,
 
+    upvoteCount: Number,
+    byWhom: [{
+        DID: String,
+        fullName: String,
+        at: Date
+    }]
 })
 
 module.exports = mongoose.model('posts', postSchema)
