@@ -7,15 +7,13 @@ const getPost = require('./getPostFunction')
 
 module.exports = (req, res) => {
     getPost(req.decoded.userName).then(data => {
-        // console.log('upvotes ---------->>>>>>>>>>>>>', data.post)
-        const p = data.post.map(({ postID }) => ({
-            postID
-        }))
+        {}
+        console.log('upvotes ---------->>>>>>>>>>>>>', data.post)
+        const p = data.post.map(({ postID }) => postID)
         console.log('map data $#$#$#$#$#$#$#$#$#$#$#$>', p)
         p.forEach(element => {
             const list = element.postID
             console.log('ele data ==-=-=-=-=-=-=-=-=-=-=->>', list)
-
 
             dbPost.findOne({ postId: { $in: [list] } }, (err, data) => {
                 if (err) {
@@ -25,9 +23,7 @@ module.exports = (req, res) => {
                 }
             })
         });
-
     })
-
 }
 
 // module.exports = async(req, res) => {
