@@ -81,12 +81,15 @@
 // console.log('map data ^^^^^^>>', map)
 
 
-function like() {
-    // n++
-    // arr.push(n++)
+// function like() {
+//     // n++
+//     // arr.push(n++)
 
-    // return n
-    return console.log('hellA')
-}
+//     // return n
+//     return console.log('hellA')
+// }
 
-like()
+// like()
+
+let num = 0
+num ?

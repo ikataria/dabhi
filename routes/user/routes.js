@@ -14,7 +14,7 @@ router.post('/editpost', tokenVerify, require('./post/editPost').edit)
 router.post('/deletepost', tokenVerify, require('./post/editPost').delete)
 router.get('/getpost', tokenVerify, require('./post/getPost'))
     // router.post('/findpost', tokenVerify, require('./post/findPost'))
-router.get('/upvote', tokenVerify, require('./post/upvotes'))
+router.get('/upvote/:postID', tokenVerify, require('./post/upvotes'))
 
 
 

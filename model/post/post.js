@@ -1,12 +1,27 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-/**
+/**********POSTS*****************
  * -1 : Deleted
  *  0 : Posted
  *  1 : Updated
- */
+ *********************************/
 
+/***********COMMENT**************/
+/**
+ * comment
+ * post ID 
+ * by whom, on post
+ * on whom, on post
+ * when on post
+ * status :- [
+ *            -1 : Deleted,
+ *             0 : Present,
+ *             1 : Edited 
+ *           ]
+ *  
+ */
+/************************************/
 const postSchema = new Schema({
     DID: {
         type: String,
@@ -23,11 +38,23 @@ const postSchema = new Schema({
     status: Number,
     createdAt: Date,
 
-    upvoteCount: Number,
-    byWhom: [{
-        DID: String,
-        fullName: String,
-        at: Date
+    upvoteCount: {
+        count: Number,
+        byWhom: [{
+            DID: String,
+            fullName: String,
+            at: Date
+        }]
+    },
+
+    comment: [{
+        comment: String,
+        byWhom: {
+            DID: String,
+            userName: String
+        },
+        commentedAt: Date,
+        status: Number
     }]
 })
 
