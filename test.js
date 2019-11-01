@@ -70,16 +70,14 @@
 // let obj = { name: 'yes' }
 // console.log('=>', /^obj.name/i)
 
+
+
+/********************************************* array MAP ************************************************/
 // let arr = [{ name: 'mohit', age: 25, height: 6 }, { name: 'gaurav', age: 24, height: 5.6 }, { name: 'ankur', age: 26, height: 5.9 }]
-// let map = arr.map(a => {
-//     return {
-//         age: a.age,
-//         by: a.name
-//     }
-// })
+// let map = arr.map(a => a.name)
 
 // console.log('map data ^^^^^^>>', map)
-
+/********************************************************************************************** */
 
 // function like() {
 //     // n++
@@ -91,5 +89,74 @@
 
 // like()
 
-let num = 0
-num ?
+// let num = 0
+// num ?
+/********************* for loop using recursion********************** */
+// function co(i) {
+//     if (i < 10) {
+//         console.log(i)
+
+//     }
+//     co(i++)
+// }
+// co(1)
+/********************************************************************/
+
+/**********************factory function******************************/
+// function createCircle(radius) {
+// return {
+// radius: radius,
+// draw: function() {
+// console.log('hi this factory function')
+// }
+// }
+// }
+
+// console.log(createCircle(1))
+
+/*******************constructor function **********************/
+// function Circle(radius) {
+//     this.radius = radius;
+//     this.draw = function() {
+//         console.log('this is draw function')
+//     }
+// }
+
+// const a = new Circle(2)
+// console.log(a)
+
+// for (var i = 0; i < 10; i++) {
+//     console.log('==>> ', i)
+//     setTimeout(() => {
+//         console.log('the number is  ' + i)
+//     }, 1000);
+// }
+
+// const race = '100m dash'
+// const winners = ['gaurav', 'ankur', 'mohit']
+
+// const win = winners.map((winner, i) => ({ name: winner, race, place: i + 1 }))
+
+// console.log('--=-=> ', win)
+
+// const ages = [61, 65, 1, 45, 36, 75, 15, 85, ]
+// const old = ages.filter(age => age >= 55)
+// console.log(old)
+
+// const circle = {
+//     radius: 1,
+//     draw() {
+//         console.log('draw message')
+//     }
+// }
+
+// for (let key in circle)
+//     console.log(key, circle[key])
+
+// const courses = [
+//     { id: 1, name: 'a' }
+// ]
+
+// let date = new Date()
+
+// console.log('date =-=-=-=->', date)

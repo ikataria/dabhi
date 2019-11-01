@@ -7,23 +7,69 @@ const getPost = require('./getPostFunction')
  * On a specific post he/she can like & comment (we will relate the like & Post through 'postID')
  */
 
+
+const findupvotecount = () => {
+    return new Promise((resolve, reject) => {
+        dbPost.count({ postID: req.params.postID }, (err, count) => {
+            if (err) {
+                reject({
+                    success: false,
+                    mgs: 'Something went wrong while counting'
+                })
+            } else {
+                newCount = count++
+                    let final = newCount > 9 ? "" + newCount : "0" + newCount
+                console.log('count for upvotes -=--=-=-=-=-=-=-=-=-=-=-=-=>>', final)
+                resolve(final)
+            }
+        })
+    })
+}
+
 module.exports = (req, res) => {
     getPost(req.decoded.userName).then(data => {
+        /**
+         * make logic count upvote
+         *  
+         */
+        const p = data.post.map(a => a.postID)
+        console.log('map data $#$#$#$#$#$#$#$#$#$#$#$>', p) // output : - [ 'PID1610201900','PID1610201901','PID1810201902' ]
 
-        const p = data.post.map(({ postID }) => postID)
-        console.log('map data $#$#$#$#$#$#$#$#$#$#$#$>', p)
+        findupvotecount().then(count => {
+            if (p.includes(req.params.postID)) {
 
-        if (!req.params.postID) {
-            res.status(400).json({
-                success: false,
-                msg: 'No PostID found'
-            })
-        } else {
-            p.forEach(ele => {
+                // let update = {
+                //     'upvoteCount.count' : count,
+                //     'upvoteCount.byWhom' : g,
+                // }
+
+                let update = { $set: { 'upvoteCount.count': count }, $push: { 'upvoteCount.byWhom': { DID: req.decoded.DID, fullName: req.decoded.fullName, at: new Date } } }
+                dbPost.findOneAndUpdate({ postID: req.params.postID }, {}, (err, data) => {
+                    if (err) {
+                        console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
+                        res.json({
+                            success: false,
+                            msg: 'Something went wrong'
+                        })
+                    } else {
+                        res.json({
+                            success: true,
+                            msg: 'Liked'
+                        })
+                    }
+                })
+            } else {
+                console.log('post not found in array of getPost function')
+            }
+        })
+
+
+        /******************************************************************************/
+        p.forEach(ele => {
                 if (req.params.postID == ele) {
                     console.log('Post found ---->>>', ele)
 
-                    dbPost.findOne({ postID: ele }, (err, data) => {
+                    dbPost.findOneAndUpdate({ $and: [{ postID: p }, { postID: req.params.postID }] }, (err, data) => {
                         if (err) {
                             console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
                         } else {
@@ -47,13 +93,12 @@ module.exports = (req, res) => {
                         }
                     })
                 }
-            });
-
-        }
-
+            })
+            /***************/
     })
 }
 
+/********************************** Gaurav Code ***********************************/
 // module.exports = async(req, res) => {
 //     const { postID, DID } = req.body;
 

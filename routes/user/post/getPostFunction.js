@@ -8,6 +8,53 @@ const dbapproveFR = require('../../../model/connect/approveFR')
  * else not
  */
 
+module.exports = (userName) => {
+    // console.log('body data &^&^&^&^&^&^&^&^&^&^&^&^&^&^&$$$$$$$>>')
+    return new Promise((resolve, reject) => {
+        try {
+            dbapproveFR.find({ $and: [{ 'to.userName': userName }, { approveRequest: 'yes' }] }, (err, data) => {
+                if (err) {
+                    console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
+                    reject({
+                        success: false,
+                        msg: 'Something went wrong !'
+                    })
+                } else {
+                    if (!data || data == null) {
+                        reject({
+                            success: false,
+                            msg: 'No post to show'
+                        })
+                    } else {
+                        /******************* searching DID from dbApproveFR  *******************************/
+                        let arr = []
+                        data.forEach(ele => arr.push(ele.from.DID))
+
+                        /*********************** from array of DID we will search the POST  ***************/
+                        dbPost.find({ DID: arr }, (err, postData) => {
+                            if (err) {
+                                console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
+                                reject({
+                                    success: false,
+                                    msg: 'Something went wrong !'
+                                })
+                            } else {
+                                resolve({
+                                    success: true,
+                                    post: postData,
+                                })
+                            }
+                        })
+                    }
+                }
+            })
+        } catch (err) {
+            reject(err)
+        }
+    })
+
+}
+
 // module.exports = (req, res) => {
 //     dbapproveFR.find({ $and: [{ 'to.userName': req.decoded.userName }, { approveRequest: 'yes' }] }, (err, data) => {
 //         if (err) {
@@ -54,58 +101,3 @@ const dbapproveFR = require('../../../model/connect/approveFR')
 //         }
 //     })
 // }
-
-module.exports = (userName) => {
-    // console.log('body data &^&^&^&^&^&^&^&^&^&^&^&^&^&^&$$$$$$$>>')
-    return new Promise((resolve, reject) => {
-        try {
-            dbapproveFR.find({ $and: [{ 'to.userName': userName }, { approveRequest: 'yes' }] }, (err, data) => {
-                if (err) {
-                    console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
-                    reject({
-                        success: false,
-                        msg: 'Something went wrong !'
-                    })
-                } else {
-                    if (!data || data == null) {
-                        reject({
-                            success: false,
-                            msg: 'No post to show'
-                        })
-                    } else {
-                        /******************* searching DID from dbApproveFR  *******************************/
-                        let arr = []
-                        data.forEach(ele => arr.push(ele.from.DID))
-
-                        /*********************** from array of DID we will search the POST  ***************/
-                        dbPost.find({ DID: arr }, (err, postData) => {
-                            if (err) {
-                                console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
-                                reject({
-                                    success: false,
-                                    msg: 'Something went wrong !'
-                                })
-                            } else {
-                                // console.log('postData ^***^*^*^*^*^*^*^*^*^*^*>>', postData)
-                                // let obj = postData.map(a => {
-                                //     return ({
-                                //         story: a.story,
-                                //         by: a.fullName
-                                //     })
-                                // })
-                                // console.log('objdata ####################>>', obj)
-                                resolve({
-                                    success: true,
-                                    post: postData,
-                                })
-                            }
-                        })
-                    }
-                }
-            })
-        } catch (err) {
-            reject(err)
-        }
-    })
-
-}

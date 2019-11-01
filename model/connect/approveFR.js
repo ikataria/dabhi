@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const approveSchema = new mongoose.Schema({
-    approveRequest: String,
+    approveRequest: String, // yes or no
     from: {
         DID: String,
         userName: String,
