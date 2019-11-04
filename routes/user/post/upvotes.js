@@ -8,14 +8,14 @@ const getPost = require('./getPostFunction')
 
 const findupvotecount = (id) => {
     return new Promise((resolve, reject) => {
-        dbPost.findOne({ postID: id }, (err, data) => {
+        dbPost.findOne({ postID: id }, (err, pData) => {
             if (err) {
                 reject({
                     success: false,
                     mgs: 'Something went wrong while finding post for counting'
                 })
             } else {
-                let count = data.upvoteCount.byWhom.length
+                let count = pData.upvoteCount.byWhomDID.length
                 console.log('find count-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=>', count)
                 let newCount = ++count
                 console.log('new count-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=>', newCount)
@@ -30,14 +30,23 @@ const findupvotecount = (id) => {
 
 module.exports = (req, res) => {
     getPost(req.decoded.userName).then(data => {
-
+        // console.log('0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0->', data)
         const p = data.post.map(a => a.postID)
         console.log('map data $#$#$#$#$#$#$#$#$#$#$#$>', p) // output : - [ 'PID1610201900','PID1610201901','PID1810201902' ]
 
         let pID = req.params.postID
         findupvotecount(pID).then(count => {
-            if (p.includes(req.params.postID)) {
-                let update = { $set: { 'upvoteCount.count': count }, $push: { 'upvoteCount.byWhom': { DID: req.decoded.DID, fullName: req.decoded.fullName, at: new Date } } }
+            let mapResult = data.post.map(a => a.upvoteCount.byWhomDID.includes(req.decoded.DID))
+            console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;', mapResult)
+
+            if (mapResult.includes(true)) {
+                console.log('Post already liked')
+                res.json({
+                    success: false,
+                    msg: 'Post already liked'
+                })
+            } else if (p.includes(req.params.postID)) {
+                let update = { $set: { 'upvoteCount.count': count }, $push: { 'upvoteCount.byWhomDID': req.decoded.DID } }
                 dbPost.findOneAndUpdate({ postID: req.params.postID }, update, (err, data) => {
                     if (err) {
                         console.log(new Date().toLocaleString, __filename, "we got ERROR :::>", err)
@@ -45,8 +54,6 @@ module.exports = (req, res) => {
                             success: false,
                             msg: 'Something went wrong'
                         })
-                    } else if (data.upvote) {
-
                     } else {
                         res.json({
                             success: true,
@@ -58,6 +65,7 @@ module.exports = (req, res) => {
                 console.log('post not found in array of getPost function')
             }
         }).catch(err => {
+            console.log('we got err--->', err)
             res.json({
                 success: false,
                 msg: 'error while counting upvotes'
@@ -65,7 +73,7 @@ module.exports = (req, res) => {
         })
     }).catch(err => {
         res.json({
-            success: AnalyserNode,
+            success: false,
             msg: ' Error while searching for post'
         })
     })

@@ -40,7 +40,6 @@ module.exports = (userName) => {
                                 })
                             } else {
                                 resolve({
-                                    success: true,
                                     post: postData,
                                 })
                             }

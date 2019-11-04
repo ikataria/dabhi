@@ -40,19 +40,12 @@ const postSchema = new Schema({
 
     upvoteCount: {
         count: Number,
-        byWhom: [{
-            DID: String,
-            fullName: String,
-            at: Date
-        }]
+        byWhomDID: [String]
     },
 
     comment: [{
         comment: String,
-        byWhom: {
-            DID: String,
-            userName: String
-        },
+        byWhomDID: String,
         commentedAt: Date,
         status: Number
     }]

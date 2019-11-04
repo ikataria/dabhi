@@ -161,8 +161,70 @@
 
 // console.log('date =-=-=-=->', date)
 
-let a = 0
+// let a = 0
 
-let b = ++a
+// let b = ++a
 
-console.log('b vcalue :..', b)
+// console.log('b vcalue :..', b)
+
+// let arr = [{ id: 1, name: 'mohit', age: 25, height: 6 }, { id: 2, name: 'gaurav', age: 24, height: 5.6 }, { id: 3, name: 'ankur', age: 26, height: 5.9 }]
+
+/************************************************** ARRAY OF OBJECT ***************************************************/
+
+
+let obj = [{
+        "_id": "5dbfddc704730b7629ab5d31",
+        "address": {
+            "building": "2780",
+            "coord": [-73.98241999999999, 40.579505],
+            "street": "Stillwell Avenue",
+            "zipcode": "11224"
+        },
+        "borough": "Brooklyn",
+        "cuisine": "American",
+        "grades": [
+            { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+            { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+            { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+            { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+        ],
+        "name": "Riviera Caterer",
+        "restaurant_id": "40356018"
+    },
+    {
+        "_id": "5dbfddc704730b7629ab5d31",
+        "address": {
+            "building": "2780",
+            "coord": [-73.98241999999999, 40.579505],
+            "street": "Stillwell Avenue",
+            "zipcode": "11224"
+        },
+        "borough": "Brooklyn",
+        "cuisine": "American",
+        "grades": [
+            { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+            { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+            { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+            { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+        ],
+        "name": "Riviera Caterer",
+        "restaurant_id": "40356018"
+    }
+]
+
+obj.forEach(element => {
+    console.log(' found -+-+-+--+-+-++++++++++++++++++++++---------->', element)
+    let b = element.grades.map(a => a.id)
+    console.log('####################*********************>>>>>>>>>>>>>>>>>>>', b)
+
+});
+
+// if (a.includes(1)) {
+//     console.log('<-=-=-=-= YES =-=-=->')
+// } else {
+//     console.log('<-=-=-=-= Nothing =-=-=->')
+// }
+
+// let map = obj.grades.map(a => a.id)
+
+// console.log('map data ^^^^^^>>', map)
