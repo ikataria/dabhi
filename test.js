@@ -172,52 +172,52 @@
 /************************************************** ARRAY OF OBJECT ***************************************************/
 
 
-let obj = [{
-        "_id": "5dbfddc704730b7629ab5d31",
-        "address": {
-            "building": "2780",
-            "coord": [-73.98241999999999, 40.579505],
-            "street": "Stillwell Avenue",
-            "zipcode": "11224"
-        },
-        "borough": "Brooklyn",
-        "cuisine": "American",
-        "grades": [
-            { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
-            { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
-            { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
-            { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
-        ],
-        "name": "Riviera Caterer",
-        "restaurant_id": "40356018"
-    },
-    {
-        "_id": "5dbfddc704730b7629ab5d31",
-        "address": {
-            "building": "2780",
-            "coord": [-73.98241999999999, 40.579505],
-            "street": "Stillwell Avenue",
-            "zipcode": "11224"
-        },
-        "borough": "Brooklyn",
-        "cuisine": "American",
-        "grades": [
-            { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
-            { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
-            { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
-            { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
-        ],
-        "name": "Riviera Caterer",
-        "restaurant_id": "40356018"
-    }
-]
+// let obj = [{
+//         "_id": "5dbfddc704730b7629ab5d31",
+//         "address": {
+//             "building": "2780",
+//             "coord": [-73.98241999999999, 40.579505],
+//             "street": "Stillwell Avenue",
+//             "zipcode": "11224"
+//         },
+//         "borough": "Brooklyn",
+//         "cuisine": "American",
+//         "grades": [
+//             { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+//             { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+//             { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+//             { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+//         ],
+//         "name": "Riviera Caterer",
+//         "restaurant_id": "40356018"
+//     },
+//     {
+//         "_id": "5dbfddc704730b7629ab5d31",
+//         "address": {
+//             "building": "2780",
+//             "coord": [-73.98241999999999, 40.579505],
+//             "street": "Stillwell Avenue",
+//             "zipcode": "11224"
+//         },
+//         "borough": "Brooklyn",
+//         "cuisine": "American",
+//         "grades": [
+//             { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+//             { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+//             { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+//             { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+//         ],
+//         "name": "Riviera Caterer",
+//         "restaurant_id": "40356018"
+//     }
+// ]
 
-obj.forEach(element => {
-    console.log(' found -+-+-+--+-+-++++++++++++++++++++++---------->', element)
-    let b = element.grades.map(a => a.id)
-    console.log('####################*********************>>>>>>>>>>>>>>>>>>>', b)
+// obj.forEach(element => {
+//     console.log(' found -+-+-+--+-+-++++++++++++++++++++++---------->', element)
+//     let b = element.grades.map(a => a.id)
+//     console.log('####################*********************>>>>>>>>>>>>>>>>>>>', b)
 
-});
+// });
 
 // if (a.includes(1)) {
 //     console.log('<-=-=-=-= YES =-=-=->')
@@ -228,3 +228,37 @@ obj.forEach(element => {
 // let map = obj.grades.map(a => a.id)
 
 // console.log('map data ^^^^^^>>', map)
+
+/*************************forEach example********************************/
+// function logMapElements(value, key, map) {
+//     console.log(`m[${key}] = ${value}`);
+//   }
+
+//   new Map([['foo', 3], ['bar', {}], ['baz', undefined]])
+//     .forEach(logMapElements);
+
+// expected output: "m[foo] = 3"
+// expected output: "m[bar] = [object Object]"
+// expected output: "m[baz] = undefined"
+
+
+/*********************************** recursion function *************************************/
+
+function factorial(n) {
+    var result = 1;
+    for (let i = n; i > 1; i--) {
+        result *= i;
+    }
+    return result;
+}
+//////////// alternate  /////////////
+// function factorial(n) {
+//     if (n <= 1) {
+//         return 1;
+//     } else {
+//         return n * factorial(n - 1);
+//     }
+// }
+let a = factorial()
+
+console.log('..', a)

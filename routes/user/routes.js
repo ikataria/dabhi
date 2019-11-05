@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const multer = require('multer')
 const tokenVerify = require('../common/tokenVerify')
+
+//-------------------------- Multer --------------------------------
+const upload = multer({ dest: '' })
 
 // ----------------------- Connect ---------------------------------
 router.get('/suggestfrnds', tokenVerify, require('./connect/suggestfrnds'))
@@ -17,6 +21,7 @@ router.get('/getpost', tokenVerify, require('./post/getPost'))
     // router.post('/findpost', tokenVerify, require('./post/findPost'))
 router.get('/upvote/:postID', tokenVerify, require('./post/upvotes'))
 router.post('/comment/:postID', tokenVerify, require('./post/addComment'))
+
 
 
 
