@@ -244,13 +244,13 @@
 
 /*********************************** recursion function *************************************/
 
-function factorial(n) {
-    var result = 1;
-    for (let i = n; i > 1; i--) {
-        result *= i;
-    }
-    return result;
-}
+// function factorial(n) {
+//     var result = 1;
+//     for (let i = n; i > 1; i--) {
+//         result *= i;
+//     }
+//     return result;
+// }
 //////////// alternate  /////////////
 // function factorial(n) {
 //     if (n <= 1) {
@@ -259,6 +259,74 @@ function factorial(n) {
 //         return n * factorial(n - 1);
 //     }
 // }
-let a = factorial()
+// let a = factorial()
 
-console.log('..', a)
+// console.log('..', a)
+/************************************************************************************/
+
+// let awb = { name: 'string' }
+
+// var ship = typeof(awb) == 'object' ? awb : [awb]
+//     // let ship = typeof(awb)
+// console.log(ship)
+
+// display = 'mohit'
+
+// console.log('----', display)
+
+/******************************* Array of Object (deep) **************************************/
+let obj = [{
+        "_id": "5dbfddc704730b7629ab5d31",
+        "address": {
+            "building": "2780",
+            "coord": [-73.98241999999999, 40.579505],
+            "street": "Stillwell Avenue",
+            "zipcode": "11224"
+        },
+        "borough": "Brooklyn",
+        "cuisine": "American",
+        "grades": [
+            { $: { name: 'mohit' }, "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+            { $: { name: 'rohit' }, "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+            { $: { name: 'sohit' }, "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+            { $: { name: 'ram' }, "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+        ],
+        "name": "Riviera Caterer",
+        "restaurant_id": "40356018"
+    },
+    {
+        "_id": "5dbfddc704730b7629ab5d31",
+        "address": {
+            "building": "2780",
+            "coord": [-73.98241999999999, 40.579505],
+            "street": "Stillwell Avenue",
+            "zipcode": "11224"
+        },
+        "borough": "Brooklyn",
+        "cuisine": "American",
+        "grades": [
+            { $: { name: 'shyam' }, "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 5 },
+            { $: { name: 'ghanshyam' }, "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 6 },
+            { $: { name: 'shejram' }, "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 7 },
+            { $: { name: 'ramavatar' }, "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 8 }
+        ],
+        "name": "Riviera Caterer",
+        "restaurant_id": "40356018"
+    }
+]
+
+// obj.forEach(item => {
+//     console.log('item value :--', item.grades)
+
+// })
+
+for (let i = 0; i < obj.length; i++) {
+    obj[i].grades.forEach(item => {
+        // console.log('item value :--', item)
+        if (item['$']['name'] == 'mohit') {
+            key = item['_'] //if name is awb_number then push awb number in key
+            console.log('here-=-=-==-=->', key)
+
+        }
+    })
+}
