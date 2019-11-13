@@ -4,7 +4,7 @@ const multer = require('multer')
 const tokenVerify = require('../common/tokenVerify')
 
 //-------------------------- Multer --------------------------------
-const upload = multer({ dest: '' })
+router.post('/uploadPost', require('./post/uploadPost'))
 
 // ----------------------- Connect ---------------------------------
 router.get('/suggestfrnds', tokenVerify, require('./connect/suggestfrnds'))
