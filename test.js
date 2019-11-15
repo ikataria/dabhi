@@ -211,7 +211,7 @@
 //         "restaurant_id": "40356018"
 //     }
 // ]
-
+// console.log('===-=-=-=>', typeof array);
 // obj.forEach(element => {
 //     console.log(' found -+-+-+--+-+-++++++++++++++++++++++---------->', element)
 //     let b = element.grades.map(a => a.id)
@@ -320,13 +320,20 @@ let obj = [{
 
 // })
 
-for (let i = 0; i < obj.length; i++) {
-    obj[i].grades.forEach(item => {
-        // console.log('item value :--', item)
-        if (item['$']['name'] == 'mohit') {
-            key = item['_'] //if name is awb_number then push awb number in key
-            console.log('here-=-=-==-=->', key)
+// for (let i = 0; i < obj.length; i++) {
+//     obj[i].grades.forEach(item => {
+//         // console.log('item value :--', item)
+//         if (item['$']['name'] == 'mohit') {
+//             key = item['_'] //if name is awb_number then push awb number in key
+//             console.log('here-=-=-==-=->', key)
 
-        }
-    })
-}
+//         }
+//     })
+// }
+
+// var request = require('request');
+// request('http://www.google.com', function(error, response, body) {
+//     console.log('error:', error); // Print the error if one occurred
+//     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//     console.log('body:', body); // Print the HTML for the Google homepage.
+// });
