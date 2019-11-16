@@ -48,6 +48,10 @@ const postSchema = new Schema({
         byWhomDID: String,
         commentedAt: Date,
         status: Number
+    }],
+    uploadPost: [{
+        image: String,
+        time: Date
     }]
 })
 

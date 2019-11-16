@@ -337,3 +337,60 @@ let obj = [{
 //     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 //     console.log('body:', body); // Print the HTML for the Google homepage.
 // });
+
+
+// function factorial(n) {
+//     var result = 1;
+//     for (let i = n; i > 1; i--) {
+//         result *= i;
+//     }
+//     return result;
+// }
+////////// alternate  /////////////
+// function factorial(n) {
+//     if (n <= 1) {
+//         return 1;
+//     } else {
+//         return n * factorial(n - 1);
+//     }
+// }
+// let a = factorial(6)
+
+// console.log('..', a)
+/*******************************************************************/
+
+// let file = {
+//     mimetype: 'image/png'
+// }
+// const filetypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
+// if (filetypes.includes(file.mimetype)) {
+//     console.log('0-0-0-0-0-0-0-0-0-> macthed')
+// } else {
+//     console.log('0-0-0-0-0-0>', new Error())
+//         // return cb('Error: Images Only!')
+// }
+// const check = filetypes.map(e => {
+//     // console.log(';;;;;;', e)
+//     file.mimetype = e
+// })
+
+// let oneByone = k => {
+//     // filetypes.forEach(e => {
+//     //     return file.mimetype = e
+//     // })
+//     // console.log('hi im here')
+//     oneByone(k + 1)
+//         // console.log('-=-=-=-=-=-=-=-=-=->')
+// }
+// oneByone(0)
+// console.log('0-0-0-0-0-0-0-0->', check)
+// console.log('0-0-0-0-0-0-0-0->', file.mimetype)
+
+
+if (true || true || true) {
+    console.log('stop')
+} else {
+    console.log('continue')
+}
+
+console.log('-=-=-=-=-=-=-=-=->', false & false & false)
