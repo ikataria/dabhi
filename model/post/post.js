@@ -36,8 +36,10 @@ const postSchema = new Schema({
     },
     fullName: String,
     status: Number,
-    createdAt: Date,
-
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
     upvoteCount: {
         count: Number,
         byWhomDID: [String]

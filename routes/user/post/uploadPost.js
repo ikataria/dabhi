@@ -1,5 +1,6 @@
 const multer = require('multer')
-const path = require('path')
+const dbImage = require('../../../model/post/imageModel')
+
 
 
 module.exports = (req, res) => {
@@ -51,10 +52,24 @@ module.exports = (req, res) => {
                     msg: 'Error: No File Selected!'
                 });
             } else {
-                res.json({
-                    msg: 'File Uploaded!',
-                    file: `uploads/${req.file.filename}`
-                });
+                new dbImage({
+                    imageName: req.file.filename,
+                    uploaderDID: req.decoded.DID
+                }).save((err, saved) => {
+                    if (err) {
+                        res.json({
+                            success: false,
+                            msg: 'Something went wrong'
+                        })
+                    } else {
+                        console.log('%%%%%%%%%%%%%%%%% uploaded image and data %%%%%%%%%%%%%%', saved)
+                        res.json({
+                            msg: 'File Uploaded!',
+                            file: `uploads/${req.file.filename}`
+                        });
+                    }
+                })
+
             }
         }
     });
