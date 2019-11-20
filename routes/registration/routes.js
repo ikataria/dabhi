@@ -12,6 +12,9 @@ router.post('/verifyOTP', tokenVerify, require('./verifyOTP'))
 router.post('/login', require('./loginLogout').login)
 router.post('/logout', tokenVerify, require('./loginLogout').logout)
 
+// Password
+router.post('/changePassword', tokenVerify, require('./changePassword'))
+
 
 
 module.exports = router

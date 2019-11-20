@@ -386,15 +386,15 @@ let obj = [{
 // console.log('0-0-0-0-0-0-0-0->', check)
 // console.log('0-0-0-0-0-0-0-0->', file.mimetype)
 
-let a = 'abc'
-let b = 'xyz'
-let c
+// let a = 'abc'
+// let b = 'xyz'
+// let c
 
-console.log('=-=-=-=-=->', c)
-if ((!a || !b) && (!c || c == undefined || c == null)) { // condition get false
-    console.log('stop')
-} else {
-    console.log('continue')
-}
+// console.log('=-=-=-=-=->', c)
+// if ((!a || !b) && (!c || c == undefined || c == null)) { // condition get false
+//     console.log('stop')
+// } else {
+//     console.log('continue')
+// }
 
 // console.log('-=-=-=-=-=-=-=-=->', false & false & false)

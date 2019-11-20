@@ -5,7 +5,7 @@ const tokenVerify = require('../common/tokenVerify')
 
 //-------------------------- Multer --------------------------------
 router.post('/uploadPost', tokenVerify, require('./post/uploadPost'))
-router.post('/getUploadPost', tokenVerify, require('./post/getUploadImage'))
+router.get('/getUploadPost', tokenVerify, require('./post/getUploadImage'))
 
 // ----------------------- Connect ---------------------------------
 router.get('/suggestfrnds', tokenVerify, require('./connect/suggestfrnds'))
@@ -22,9 +22,6 @@ router.get('/getpost', tokenVerify, require('./post/getPost'))
     // router.post('/findpost', tokenVerify, require('./post/findPost'))
 router.get('/upvote/:postID', tokenVerify, require('./post/upvotes'))
 router.post('/comment/:postID', tokenVerify, require('./post/addComment'))
-
-
-
 
 
 module.exports = router
