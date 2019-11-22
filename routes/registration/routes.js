@@ -14,7 +14,7 @@ router.post('/logout', tokenVerify, require('./loginLogout').logout)
 
 // Password
 router.post('/changePassword', tokenVerify, require('./changePassword'))
-
+router.post('/forgotPassword', tokenVerify, require('./forgotPassword'))
 
 
 module.exports = router

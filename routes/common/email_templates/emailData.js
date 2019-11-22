@@ -27,3 +27,17 @@ exports.welcomeEmail = (name, link) => {
         sign: `Happy Dabhi!<br><br>${sign}`
     };
 };
+
+exports.forgotPassword = (name, password) => {
+    return {
+        heading: `Password`,
+        greet: `Hi ${name},`,
+        // preButton: `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`,
+        // postButton: `If that doesn't work, copy and paste the following link in your browser:`,
+        // button: `Confirm Email`,
+        body: `Here is your Password.<br><br>The password for your email is ${password}.<br><br> Please paste the same password in the password field.`,
+        // link: link,
+        contact: contact,
+        sign: sign
+    };
+};
