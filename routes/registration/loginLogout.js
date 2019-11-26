@@ -28,6 +28,8 @@ exports.login = (req, res) => {
                             msg: 'Please Register First'
                         })
                     } else {
+                        // console.log('<<<<<<<<<<<<<<<<<<<<<',loginData,'>>>>>>>>>>>>>>>>>>>>')
+
                         if (loginData.password == req.body.password) {
                             let saveToken = (token) => {
                                 dbLogin.findOneAndUpdate({ email: req.body.email }, { $push: { lastLogin: new Date().toLocaleString() }, $set: { token: token } }, (err, data) => {
@@ -39,7 +41,7 @@ exports.login = (req, res) => {
                                     } else {
                                         res.json({
                                             success: true,
-                                            msg: 'Login Successful',
+                                            msg: `Login Successful, Welcome ${loginData.fullName}`,
                                             status: loginData.status,
                                             token: token,
                                             changePassword: loginData.changePassword || false

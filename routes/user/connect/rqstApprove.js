@@ -10,7 +10,13 @@ exports.rqstList = (req, res) => {
                 success: false,
                 msg: err
             })
-        } else {
+        } else if (!frList || frList == null || frList.length == 0) {
+            // console.log('no frnd request yet >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',frList.length)
+            res.json({
+                success: false,
+                msg: 'No friend request yet'
+            })
+        }else {
             console.log('friend rqst $%$%$%$%$%$%$%$%$%$%$%$%$%^^>^>^>^>^^>^>^>^>^>^>^>^>', frList)
             res.json({
                 success: true,
