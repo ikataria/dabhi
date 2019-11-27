@@ -20,6 +20,7 @@ router.post('/editpost', tokenVerify, require('./post/editPost').edit)
 router.post('/deletepost', tokenVerify, require('./post/editPost').delete)
 router.get('/getpost', tokenVerify, require('./post/getPost'))
 router.get('/fetchNews', tokenVerify, require('./post/fetchNews'))
+router.get('/fetchProfile/:DID', tokenVerify, require('./post/fetchProfile'))
 router.get('/upvote/:postID', tokenVerify, require('./post/upvotes'))
 router.post('/comment/:postID', tokenVerify, require('./post/addComment'))
 

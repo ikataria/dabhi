@@ -20,7 +20,31 @@ const dbPost = require('../../../model/post/post')
          if(err){
              errorHandler(err,res)
          }else{
-             
+            //  console.log('-=-=-=-=-=-=-=->',rqstData,'<-=-=-=-=-=-=-=-=')
+            const DID = rqstData.map(a => a.from.DID)
+            console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=->>>>>>>>',DID)
+            dbPost.find({DID : DID}).sort({createdAt : 'Descending'}).exec((err,post) => {
+                if(err){ errorHandler(err,res)}
+                else{
+                    // console.log('post data-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->',post.upvoteCount)
+                    const data = post.map( (b) => {
+                        return{
+                            'like' : b.upvoteCount,
+                            'owner' : b.fullName,
+                            'story' : b.story,
+                            'date' : b.createdAt,
+                            comment : b.comment,
+                            uploadedPost : b.uploadPost
+                        }
+                    })
+                    console.log(' post data-=-=-=-=-=-=-=-=-=-=-=-=-=->>>>//////',data)
+                    res.json({
+                        success : true,
+                        // msg : 'Something went wrong',
+                        feed : data
+                    })
+                }
+            })
          }
      })
  }
