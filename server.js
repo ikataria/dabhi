@@ -7,9 +7,9 @@ console.log('process array >>>>>>[]>>', process.argv)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-mongoose.connect('mongodb://localhost/social', { useNewUrlParser: true }, (err, connection) => {
+mongoose.connect('mongodb+srv://dabhi:dabhi@cluster0-6rj7e.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }, (err, connection) => {
     if (err) {
-        console.log(`Can't connect to the database`)
+        console.log(`Can't connect to the database`, err)
     } else {
         console.log('Successfully connected to the database')
     }
