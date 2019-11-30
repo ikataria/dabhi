@@ -33,36 +33,41 @@ module.exports = (req, res) => {
                     msg: 'Something went wrong'
                 })
             } else if (!listData || listData == null) {
-                console.log('decoded data ^^^^^^^^^^^^^^^^^>>>>>>', req.decoded)
+                // console.log('decoded data ^^^^^^^^^^^^^^^^^>>>>>>', req.decoded)
                 findUser(req.body.userName).then(pData => {
-                    new dbFrndRqstList({
-                        from: {
-                            DID: req.decoded.DID,
-                            userName: req.decoded.userName
-                        },
-                        to: {
-                            DID: pData.DID,
-                            userName: pData.userName,
-                        },
-                        createdAt: new Date().toLocaleString()
-                    }).save((err, saved) => {
-                        console.log(new Date(), __filename, 'Err ==>>>', err)
-                        if (err) {
-                            res.json({
-                                success: false,
-                                msg: 'Error while saving friend request list'
-                            })
-                        } else {
-                            console.log(' saved data $%$%$%$%$%$%$%', saved)
-                            res.json({
-                                success: true,
-                                msg: `Friend request send to ${pData.fullName}`
-                                    // data: pData
-                            })
-                        }
-                    })
-
-
+                    if (!pData || pData == null) {
+                        res.json({
+                            success: false,
+                            msg: 'No such user exists'
+                        })
+                    } else {
+                        new dbFrndRqstList({
+                            from: {
+                                DID: req.decoded.DID,
+                                userName: req.decoded.userName
+                            },
+                            to: {
+                                DID: pData.DID,
+                                userName: pData.userName,
+                            },
+                            createdAt: new Date().toLocaleString()
+                        }).save((err, saved) => {
+                            console.log(new Date(), __filename, 'Err ==>>>', err)
+                            if (err) {
+                                res.json({
+                                    success: false,
+                                    msg: 'Error while saving friend request list'
+                                })
+                            } else {
+                                console.log(' saved data $%$%$%$%$%$%$%', saved)
+                                res.json({
+                                    success: true,
+                                    msg: `Friend request send to ${pData.fullName}`
+                                        // data: pData
+                                })
+                            }
+                        })
+                    }
                 })
             } else {
                 res.json({

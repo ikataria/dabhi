@@ -77,7 +77,7 @@ module.exports = (req, res) => {
                             if (err) {
                                 res.json({
                                     success: false,
-                                    msg: 'Error while saving Login Data, Please try after some time 1'
+                                    msg: 'Error while saving Login Data, Please try after some time '
                                 })
                             } else {
                                 new dbUserProfile({

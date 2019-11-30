@@ -19,13 +19,17 @@ module.exports = (req, res) => {
                 arr.push(userName)
             })
 
+            let index = arr.indexOf(req.decoded.userName)
+            if (index > -1) {
+                arr.splice(index, 1)
+            }
             console.log('profile data XXXXXXXXXXXXXXXXXXXx-->', arr)
 
 
             res.json({
                 success: true,
                 msg: 'All Dabhi',
-                count: profileData.length,
+                count: profileData.length - 1,
                 data: arr
             })
         }

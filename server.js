@@ -6,8 +6,9 @@ const app = express()
 console.log('process array >>>>>>[]>>', process.argv)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+const mongoURI = config.MONGO_URI
 
-mongoose.connect('mongodb+srv://dabhi:dabhi@cluster0-6rj7e.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }, (err, connection) => {
+mongoose.connect(mongoURI, { useNewUrlParser: true }, (err, connection) => {
     if (err) {
         console.log(`Can't connect to the database`, err)
     } else {

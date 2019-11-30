@@ -16,6 +16,12 @@ const generateOTP = () => {
      * if not, generate new email OTP, verify email
      * save all details
      */
+function errorHandler(err, res) {
+    res.json({
+        success: false,
+        msg: 'Something went wrong'
+    })
+}
 
 module.exports = (req, res) => {
     try {
@@ -40,141 +46,151 @@ module.exports = (req, res) => {
                 msg: 'Please fill all the details'
             })
         } else {
-            dbLogin.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, lData) => {
-                if (err) {
+            dbRegistration.findOne({ userName: req.body.userName }, (err, uName) => {
+                if (err) { errorHandler(err, res) } else if (uName) {
                     res.json({
                         success: false,
-                        msg: "Error in processing"
+                        msg: "Sorry, that username is not available!"
                     })
-                } else if (!lData || lData == null) {
-
-                    tokenData = {
-                        email: req.body.email,
-                        phone: req.body.phone,
-                        userName: req.body.userName
-                    }
-                    const token = jwt.sign(tokenData, req.app.get('secretKey'))
-                        /** Above secret key has to be stored in environment variable, but for now we using openly in our source code */
-                    dbRegistration.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, registerData) => {
+                } else {
+                    dbLogin.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, lData) => {
                         if (err) {
                             res.json({
                                 success: false,
-                                msg: "Error in processing request. Please try again after some time"
+                                msg: "Error in processing"
                             })
-                        } else if (!registerData || registerData == null) {
+                        } else if (!lData || lData == null) {
 
-                            new dbRegistration({
-                                firstName: req.body.firstName,
-                                lastName: req.body.lastName,
-                                userName: req.body.userName,
-                                dob: req.body.dob,
+                            tokenData = {
                                 email: req.body.email,
                                 phone: req.body.phone,
-                                password: req.body.password,
-                                status: 0,
-                                emailVerify: {
-                                    otp: generateOTP(),
-                                    verified: false
-                                }
-                            }).save((err, savedData) => {
-                                console.log('Registered Data +++++++++++++++++++++++>', savedData)
-                                if (err) {
-                                    res.json({
-                                        success: false,
-                                        msg: 'Registration Data not saved, err! '
-                                    })
-                                } else {
-                                    let emailObj = emailData.verifyEmail(req.body.firstName, savedData.emailVerify.otp)
-
-                                    ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
-
-
-                                        if (err) {
-                                            res.json({
-                                                success: false,
-                                                msg: 'renderFile err, Please verify the account'
-                                            })
-                                        } else {
-                                            let subject = 'OTP verify'
-                                            mailer.sendMail(savedData.email, subject, html).then(data => {
-                                                res.json({
-                                                    success: true,
-                                                    token: token,
-                                                    msg: 'Please verify the account'
-                                                })
-                                            }).catch(err => {
-                                                res.json({
-                                                    success: false,
-                                                    msg: "catch err,Please verify the account."
-                                                })
-                                            })
-
-                                        }
-                                    })
-
-                                }
-                            })
-                        } else {
-                            let newObj = {
-                                firstName: req.body.firstName,
-                                lastName: req.body.lastName,
-                                userName: req.body.userName,
-                                dob: req.body.dob,
-                                email: req.body.email,
-                                phone: req.body.phone,
-                                password: req.body.password,
-                                status: 0,
-                                emailVerify: {
-                                    otp: generateOTP(),
-                                    verified: false
-                                }
+                                userName: req.body.userName
                             }
-                            dbRegistration.update({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, newObj, (err, updatedData) => {
-                                console.log('upDated regis data +++++++++++++++++++++++>', updatedData)
+                            const token = jwt.sign(tokenData, req.app.get('secretKey'))
+                                /** Above secret key has to be stored in environment variable, but for now we using openly in our source code */
+                            dbRegistration.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, (err, registerData) => {
                                 if (err) {
                                     res.json({
                                         success: false,
-                                        msg: "Server Error. Please try again after some time."
+                                        msg: "Error in processing request. Please try again after some time"
                                     })
-                                } else {
-                                    let emailObj = emailData.verifyEmail(req.body.firstName, newObj.emailVerify.otp)
-                                    ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
+                                } else if (!registerData || registerData == null) {
+
+                                    new dbRegistration({
+                                        firstName: req.body.firstName,
+                                        lastName: req.body.lastName,
+                                        userName: req.body.userName,
+                                        dob: req.body.dob,
+                                        email: req.body.email,
+                                        phone: req.body.phone,
+                                        password: req.body.password,
+                                        status: 0,
+                                        emailVerify: {
+                                            otp: generateOTP(),
+                                            verified: false
+                                        }
+                                    }).save((err, savedData) => {
+                                        console.log('Registered Data +++++++++++++++++++++++>', savedData)
                                         if (err) {
                                             res.json({
                                                 success: false,
-                                                token: token,
-                                                msg: 'renderFile err in same credentials, Please verify the account'
+                                                msg: 'Registration Data not saved, err! '
                                             })
                                         } else {
-                                            let subject = 'OTP verify'
-                                            mailer.sendMail(newObj.email, subject, html).then(data => {
-                                                res.json({
-                                                    success: true,
-                                                    token: token,
-                                                    msg: 'Please verify the account'
-                                                })
-                                            }).catch(err => {
-                                                console.log('err>>>>>>>>>>>>', err)
-                                                res.json({
-                                                    success: false,
-                                                    msg: "catch err,Please verify the account."
-                                                })
+                                            let emailObj = emailData.verifyEmail(req.body.firstName, savedData.emailVerify.otp)
+
+                                            ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
+
+
+                                                if (err) {
+                                                    res.json({
+                                                        success: false,
+                                                        msg: 'renderFile err, Please verify the account'
+                                                    })
+                                                } else {
+                                                    let subject = 'OTP verify'
+                                                    mailer.sendMail(savedData.email, subject, html).then(data => {
+                                                        res.json({
+                                                            success: true,
+                                                            token: token,
+                                                            msg: 'Please verify the account'
+                                                        })
+                                                    }).catch(err => {
+                                                        res.json({
+                                                            success: false,
+                                                            msg: "catch err,Please verify the account."
+                                                        })
+                                                    })
+
+                                                }
                                             })
 
                                         }
                                     })
+                                } else {
+                                    let newObj = {
+                                        firstName: req.body.firstName,
+                                        lastName: req.body.lastName,
+                                        userName: req.body.userName,
+                                        dob: req.body.dob,
+                                        email: req.body.email,
+                                        phone: req.body.phone,
+                                        password: req.body.password,
+                                        status: 0,
+                                        emailVerify: {
+                                            otp: generateOTP(),
+                                            verified: false
+                                        }
+                                    }
+                                    dbRegistration.update({ $or: [{ email: req.body.email }, { phone: req.body.phone }] }, newObj, (err, updatedData) => {
+                                        console.log('upDated regis data +++++++++++++++++++++++>', updatedData)
+                                        if (err) {
+                                            res.json({
+                                                success: false,
+                                                msg: "Server Error. Please try again after some time."
+                                            })
+                                        } else {
+                                            let emailObj = emailData.verifyEmail(req.body.firstName, newObj.emailVerify.otp)
+                                            ejs.renderFile(path.join(__dirname + '/../common/email_templates/basic.ejs'), emailObj, (err, html) => {
+                                                if (err) {
+                                                    res.json({
+                                                        success: false,
+                                                        token: token,
+                                                        msg: 'renderFile err in same credentials, Please verify the account'
+                                                    })
+                                                } else {
+                                                    let subject = 'OTP verify'
+                                                    mailer.sendMail(newObj.email, subject, html).then(data => {
+                                                        res.json({
+                                                            success: true,
+                                                            token: token,
+                                                            msg: 'Please verify the account'
+                                                        })
+                                                    }).catch(err => {
+                                                        console.log('err>>>>>>>>>>>>', err)
+                                                        res.json({
+                                                            success: false,
+                                                            msg: "catch err,Please verify the account."
+                                                        })
+                                                    })
+
+                                                }
+                                            })
+                                        }
+                                    })
                                 }
+                            })
+
+                        } else {
+                            res.json({
+                                success: false,
+                                msg: 'User with same credentials already exists.'
                             })
                         }
                     })
-
-                } else {
-                    res.json({
-                        success: false,
-                        msg: 'User with same credentials already exists.'
-                    })
                 }
             })
+
         }
     } catch (err) {
         console.log(new Date(), __filename, 'catch err')
