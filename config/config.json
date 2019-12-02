@@ -2,4 +2,5 @@
     "SECRET": "Development",
     "PORT": 7000,
     "MONGO_URI": "mongodb+srv://dabhi:dabhi@cluster0-6rj7e.mongodb.net/test?retryWrites=true&w=majority"
+
 }

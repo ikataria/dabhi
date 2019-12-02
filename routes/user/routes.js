@@ -23,6 +23,7 @@ router.get('/fetchNews', tokenVerify, require('./post/fetchNews'))
 router.get('/fetchProfile/:DID', tokenVerify, require('./post/fetchProfile'))
 router.get('/upvote/:postID', tokenVerify, require('./post/upvotes'))
 router.post('/comment/:postID', tokenVerify, require('./post/addComment'))
+router.post('/uploadVDO', tokenVerify, require('./post/youtube/uploadVDO'))
 
 
 module.exports = router
