@@ -1,11 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const helmet = require('helmet')
+const compression = require('compression')
 const config = require('./config/config.json')
 const app = express()
 console.log('process array >>>>>>[]>>', process.argv)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(helmet())
+app.use(compression())
 const mongoURI = config.MONGO_URI
 
 mongoose.connect(mongoURI, { useNewUrlParser: true }, (err, connection) => {
