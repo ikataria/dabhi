@@ -19,6 +19,18 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, (err, connection) => {
         console.log('Successfully connected to the database')
     }
 })
+
+/******************* local Database ******************/
+// mongoose.connect("mongodb://localhost/dummyData", { useNewUrlParser: true, useUnifiedTopology: true }, (err, connection) => {
+//     // console.log('connection data :::::', connection)
+//     if (err) {
+//         console.log(`Can't connect to the database`, err)
+//     } else {
+//         console.log('----------Successfully connected to the database----------')
+//     }
+// })
+/********************************************************/
+
 mongoose.set('useUnifiedTopology', true);
 
 let secret = config.SECRET

@@ -172,52 +172,52 @@
 /************************************************** ARRAY OF OBJECT ***************************************************/
 
 
-// let obj = [{
-//         "_id": "5dbfddc704730b7629ab5d31",
-//         "address": {
-//             "building": "2780",
-//             "coord": [-73.98241999999999, 40.579505],
-//             "street": "Stillwell Avenue",
-//             "zipcode": "11224"
-//         },
-//         "borough": "Brooklyn",
-//         "cuisine": "American",
-//         "grades": [
-//             { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
-//             { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
-//             { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
-//             { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
-//         ],
-//         "name": "Riviera Caterer",
-//         "restaurant_id": "40356018"
-//     },
-//     {
-//         "_id": "5dbfddc704730b7629ab5d31",
-//         "address": {
-//             "building": "2780",
-//             "coord": [-73.98241999999999, 40.579505],
-//             "street": "Stillwell Avenue",
-//             "zipcode": "11224"
-//         },
-//         "borough": "Brooklyn",
-//         "cuisine": "American",
-//         "grades": [
-//             { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
-//             { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
-//             { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
-//             { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
-//         ],
-//         "name": "Riviera Caterer",
-//         "restaurant_id": "40356018"
-//     }
-// ]
-// console.log('===-=-=-=>', typeof array);
-// obj.forEach(element => {
-//     console.log(' found -+-+-+--+-+-++++++++++++++++++++++---------->', element)
-//     let b = element.grades.map(a => a.id)
-//     console.log('####################*********************>>>>>>>>>>>>>>>>>>>', b)
+let obj = [{
+            "_id": "5dbfddc704730b7629ab5d31",
+            "address": {
+                "building": "2780",
+                "coord": [-73.98241999999999, 40.579505],
+                "street": "Stillwell Avenue",
+                "zipcode": "11224"
+            },
+            "borough": "Brooklyn",
+            "cuisine": "American",
+            "grades": [
+                { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+                { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+                { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+                { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+            ],
+            "name": "Riviera Caterer",
+            "restaurant_id": "40356018"
+        },
+        {
+            "_id": "5dbfddc704730b7629ab5d31",
+            "address": {
+                "building": "2780",
+                "coord": [-73.98241999999999, 40.579505],
+                "street": "Stillwell Avenue",
+                "zipcode": "11224"
+            },
+            "borough": "Brooklyn",
+            "cuisine": "American",
+            "grades": [
+                { "date": "2014-06-10T00:00:00.000Z", "grade": "A", "score": 05, id: 1 },
+                { "date": "2013-06-05T00:00:00.000Z", "grade": "A", "score": 07, id: 2 },
+                { "date": "2012-04-13T00:00:00.000Z", "grade": "A", "score": 12, id: 3 },
+                { "date": "2011-10-12T00:00:00.000Z", "grade": "A", "score": 12, id: 4 }
+            ],
+            "name": "Riviera Caterer",
+            "restaurant_id": "40356018"
+        }
+    ]
+    // console.log('===-=-=-=>', typeof(array));
+obj.forEach(element => {
+    console.log(' found -+-+-+--+-+-++++++++++++++++++++++---------->', element.name)
+    let b = element.grades.map(a => a.id)
+        // console.log('####################*********************>>>>>>>>>>>>>>>>>>>', b)
 
-// });
+});
 
 // if (a.includes(1)) {
 //     console.log('<-=-=-=-= YES =-=-=->')
@@ -633,15 +633,15 @@
 
 // }
 
-let todayDate = new Date();
-let date = todayDate.getDate()
-let day = todayDate.getDay()
-    // let yesterdayDate = new Date().setDate(todayDate.getDate() - 1);
+// let todayDate = new Date();
+// let date = todayDate.getDate()
+// let day = todayDate.getDay()
+//     // let yesterdayDate = new Date().setDate(todayDate.getDate() - 1);
 
-// let startDate = new Date(yesterdayDate).setHours(14, 0, 0, 0);
-// let endDate = new Date().setHours(14, 0, 0, 0);
+// // let startDate = new Date(yesterdayDate).setHours(14, 0, 0, 0);
+// // let endDate = new Date().setHours(14, 0, 0, 0);
 
-console.log('startDate :-', day)
+// console.log('startDate :-', day)
 
 // function hello() {
 //     { return "hello edabit.com" }
@@ -1468,3 +1468,10 @@ console.log('startDate :-', day)
 //     return 0
 // })
 // console.log(courses)
+
+/******************* File System *********************/
+
+const fs = require('fs')
+
+let files = fs.readdirSync('./')
+console.log(files)
